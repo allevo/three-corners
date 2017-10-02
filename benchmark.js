@@ -29,12 +29,9 @@ function B3 (arg1, arg2, cbk) {
   process.nextTick(cbk, null, arg1 + arg2)
 }
 
-
 const b1 = wrapAsync(B1)
 const b2 = wrapPromise(B2)
 const b3 = wrapCallback(B3)
-
-var bench = require('fastbench')
 
 var run = bench([
   async function benchPlainA (done) {

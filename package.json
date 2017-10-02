@@ -7,7 +7,6 @@
     "fastbench": "^1.0.1"
   },
   "devDependencies": {
-    "pre-commit": "^1.2.2",
     "snazzy": "^7.0.0",
     "standard": "^10.0.3",
     "tap": "^10.7.2"
