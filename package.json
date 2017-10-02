@@ -1,0 +1,26 @@
+{
+  "name": "abc",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "fastbench": "^1.0.1"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3",
+    "tap": "^10.7.2"
+  },
+  "scripts": {
+    "unit": "tap test/test.js",
+    "lint": "standard | snazzy",
+    "test": "npm run unit"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "author": "Tommaso Allevi <tomallevi@gmail.com>",
+  "license": "MIT"
+}
