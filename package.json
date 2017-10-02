@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
-  "dependencies": { },
+  "dependencies": {},
   "devDependencies": {
-    "tap": "^10.7.2"
+    "pre-commit": "^1.2.2",
+    "tap": "10.7.2"
+  },
+  "engines": {
+    "node": ">=0.8"
   },
   "scripts": {
     "install_lint": "npm i standard snazzy",
