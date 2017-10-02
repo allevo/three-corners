@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "fastbench": "^1.0.1"
+    "fastbench": "^1.0.1",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
   },
   "devDependencies": {
-    "snazzy": "^7.0.0",
-    "standard": "^10.0.3",
     "tap": "^10.7.2"
   },
   "scripts": {
+    "install_lint": "npm i standard snazzy",
     "unit": "tap test/test.js",
-    "lint": "standard | snazzy",
-    "test": "npm run unit"
+    "lint": "npm run install_lint && standard | snazzy",
+    "test": "npm run unit",
+    "benchmark": "npm i fastbench && node benchmark.js"
   },
   "pre-commit": [
     "lint",
