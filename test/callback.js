@@ -5,7 +5,7 @@ var error = new Error('DOOM!')
 var wrapCallback = require('../').wrapCallback
 
 module.exports = function (t) {
-  t.plan(3)
+  t.plan(4)
 
   t.test('no args', function (t) {
     t.plan(4)
@@ -147,6 +147,42 @@ module.exports = function (t) {
       wrapped(1, 2, 3, 4, 5, 6, function (err, result) {
         t.equal(err, error)
         t.equal(result, undefined)
+      })
+    })
+  })
+
+  t.test('with this', function (t) {
+    t.plan(2)
+
+    const obj = {
+      b: 66,
+      func: function (callback) {
+        callback(null, this.b)
+      },
+      func2: function (a, b, c, callback) {
+        callback(null, this.b + a + b + c)
+      }
+    }
+
+    t.test('on args', function (t) {
+      t.plan(2)
+
+      var wrapped = wrapCallback('func', obj)
+
+      wrapped(function (err, result) {
+        t.error(err)
+        t.equal(result, 66)
+      })
+    })
+
+    t.test('multiple args', function (t) {
+      t.plan(2)
+
+      var wrapped = wrapCallback('func2', obj)
+
+      wrapped(1, 2, 3, function (err, result) {
+        t.error(err)
+        t.equal(result, 66 + 1 + 2 + 3)
       })
     })
   })

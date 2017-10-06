@@ -5,7 +5,7 @@ var error = new Error('DOOM!')
 var wrapAsync = require('../').wrapAsync
 
 module.exports = function (t) {
-  t.plan(3)
+  t.plan(4)
 
   t.test('no args', function (t) {
     t.plan(4)
@@ -150,10 +150,47 @@ module.exports = function (t) {
       })
     })
   })
+
+  t.test('with this', function (t) {
+    t.plan(2)
+
+    const obj = {
+      b: 66,
+      func: async function () {
+        return Promise.resolve(this.b)
+      },
+      func2: async function (a, b, c) {
+        return Promise.resolve(this.b + a + b + c)
+      }
+    }
+
+    t.test('sync', function (t) {
+      t.plan(2)
+
+      var wrapped = wrapAsync('func', obj)
+
+      wrapped(function (err, result) {
+        t.error(err)
+        t.equal(result, 66)
+      })
+    })
+
+    t.test('multiple args', function (t) {
+      t.plan(2)
+
+      var wrapped = wrapAsync('func2', obj)
+
+      wrapped(1, 2, 3, function (err, result) {
+        t.error(err)
+        t.equal(result, 66 + 1 + 2 + 3)
+      })
+    })
+  })
 }
 
+const n = 3
 async function noExtraArgs () {
-  return 3
+  return n
 }
 
 async function noExtraArgsError () {
@@ -174,8 +211,9 @@ async function noExtraArgsErrorDelayed () {
   throw error
 }
 
+const multiplier = 2
 async function oneArgument (n) {
-  return n * 2
+  return n * multiplier
 }
 
 async function oneArgumentError (n) {
@@ -186,7 +224,7 @@ async function oneArgumentDelayed (n) {
   await new Promise(function (resolve) {
     setTimeout(resolve, 10)
   })
-  return n * 2
+  return n * multiplier
 }
 
 async function oneArgumentErrorDelayed (n) {
