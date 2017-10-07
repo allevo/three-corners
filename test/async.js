@@ -154,7 +154,7 @@ module.exports = function (t) {
   t.test('with this', function (t) {
     t.plan(2)
 
-    const obj = {
+    var obj = {
       b: 66,
       func: async function () {
         return Promise.resolve(this.b)
