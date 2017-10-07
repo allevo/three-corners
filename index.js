@@ -1,7 +1,7 @@
 /* eslint new-parens: 0 */
 'use strict'
 
-const assert = require('assert')
+var assert = require('assert')
 
 var AsyncFunction = function () {}
 try {
